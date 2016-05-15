@@ -1,4 +1,4 @@
-# Example Neovim Python Plugin
+# Example Neovim Python3 Plugin
 
 - [Introduction](#introduction)
 - [Installing](#installing)
@@ -27,41 +27,31 @@ MessagePack protocol.
 Since plugins are distinct from the Neovim process, it is possible to write
 plugins in many languages.
 
-This is a minimal example of a Python plugin. When you want to create a new
-Python plugin, you should be able to (and feel free to) copy this repository,
+This is a minimal example of a Python3 plugin. When you want to create a new
+Python3 plugin, you should be able to (and feel free to) copy this repository,
 rename a couple files, include the plugin in your Vim config and see something
 happen.
 
 ## <a id="installing"></a>Installing
 
-### <a id="downloading"></a>Downloading
-
-The intention of this repository is to make it quick and easy to start a new
-plugin. It is just enough to show how to make the basics work.
-
-```Bash
-git clone --depth 1 https://github.com/jacobsimpson/nvim-example-python-plugin ~/.vim/bundle/nvim-example-python-plugin
-rm -Rf ~/.vim/bundles/nvim-example-python-plugin/.git
-```
-
 ### <a id="configuring-vim"></a>Configuring Vim
 
-I use NeoBundle so this is an example of how to load this plugin in NeoBundle.
+I use vim-plug so this is an example of how to load this plugin in vim-plug.
 
 ```VimL
-" Required:
-call neobundle#begin(expand('~/.vim/bundle/'))
+function! DoRemote(arg)
+  UpdateRemotePlugins
+endfunction
 
-    " Let NeoBundle manage NeoBundle
-    " Required:
-    NeoBundleFetch 'Shougo/neobundle.vim'
-
-    " You probably have a number of other plugins listed here.
-
-    " Add this line to make your new plugin load, assuming you haven't renamed it.
-    NeoBundle 'nvim-example-python-plugin'
-call neobundle#end()
+Plug '5t111111/nvim-example-python3-plugin', { 'do': function('DoRemote') }
 ```
+
+Note that it executes `UpdateRemotePlugins` after installation which is
+required to to initialize the manifest for the Python part of the plugin.
+The manifest is a cache that Vim keeps of the interface implemented by
+the Python part of the plugin. The functions and commands it interfaces.
+
+To initialize the manifest manually, execute:
 
 ### <a id="initializing"></a>Initializing Vim with Remote Plugin
 
@@ -79,7 +69,7 @@ To initialize the manifest, execute:
 
 There is some VimL in the plugin that will print when Neovim is starting up:
 
-    Starting the example Python Plugin
+    Starting the example Python3 Plugin
 
 That will confirm that the VimL portions of the plugin are loading correctly.
 
